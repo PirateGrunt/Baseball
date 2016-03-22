@@ -1,0 +1,31 @@
+---
+  output: word_document
+---
+
+```{r SupportLibraries}
+library(ggplot2)
+```
+
+```{r }
+processedDir <- "../data/processed/"
+```
+
+```{r }
+load(paste0(processedDir, 'processed.rda'))
+
+pltHeightWeight <- ggplot(dfMaster, aes(x=height, y=weight)) + geom_point()
+pltHeightWeight
+```
+
+Revise the data frame so that the odd outlier has been removed.
+
+```{r }
+pltHeightWeight <- ggplot(subset(dfMaster, height > 50)
+                          , aes(x=height, y=weight)) + geom_point()
+pltHeightWeight
+```
+
+```{r Save}
+save(file="EDA.rda"
+     , pltHeightWeight)
+```
